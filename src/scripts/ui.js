@@ -16,7 +16,7 @@ export function createCard(cardData) {
   const card = document.createElement("div");
   card.id = cardData.id;
   card.classList.add("card");
-  const img = `/assets/cards/${cardData.id}.jpg`
+  const img = `/notgambling/assets/cards/${cardData.id}.jpg`
   card.innerHTML = `
     <img src="${img}" alt="${cardData.name}" />
     <h2>${cardData.name}</h2>
