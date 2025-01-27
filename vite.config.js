@@ -5,8 +5,7 @@ export default defineConfig({
   root: 'src', // Project root
   publicDir: path.resolve(__dirname, 'public'), // Absolute path to the public directory
   build: {
-    outDir: path.resolve(__dirname, 'dist'), // Ensure proper output directory
-    emptyOutDir: true,
+    outDir: __dirname
   },
   base: '/notgambling/',
   server: {
