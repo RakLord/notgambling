@@ -21,22 +21,36 @@ export function setupUI() {
 
 export function updateUI() {
   const pointsElement = document.getElementById("scoreText");
-  pointsElement.innerText = `Points: ${game.points}`;
+  pointsElement.innerText = `Points: ${game.playerPoints}`;
 }
 
+// Creates the card display for the collection
 export function createCard(cardData) {
   console.log(cardData);
   const container = document.getElementById("cardContainer");
-  const card = document.createElement("div");
-  card.id = cardData.id;
-  card.classList.add("card");
-  const img = `/notgambling/assets/cards/${cardData.id}.jpg`
-  card.innerHTML = `
-    <img src="${img}" alt="${cardData.name}" />
-    <h2>${cardData.name}</h2>
-    <p>${cardData.description}</p>
-  `;
-  container.appendChild(card);
+  
+  let card = document.getElementById(cardData.id);
+  if (!card) {
+    card = document.createElement("div");
+    card.id = cardData.id;
+    card.classList.add("card");
+
+    const img = `/notgambling/assets/cards/${cardData.id}.jpg`
+
+    card.innerHTML = `
+      <div class="quantity-overlay">${cardData.quantity}</div>
+      <img src="${img}" alt="${cardData.name}" />
+      <h2>${cardData.name}</h2>
+      <p>${cardData.description}</p>
+    `;
+
+    container.appendChild(card);
+  } else {
+    const quantityOverlay = card.querySelector(".quantity-overlay");
+    if (quantityOverlay) {
+      quantityOverlay.innerText = cardData.quantity;
+    }
+  }
 }
 
 // Sets up all tab content

@@ -104,9 +104,11 @@ body {
   border: 2px solid hsla(220, 40%, 40%, 0.4);
   background-color: hsla(220, 20%, 9%, 0.5);
 }
+
 .card {
-  width: 180px;;
-  height: 280px;
+  position: relative;
+  width: 180px;
+  height: 300px;
   border: solid 2px hsla(220, 40%, 40%);
   border-radius: 5px;
   padding: 0.6rem;
@@ -114,10 +116,25 @@ body {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+
+  overflow: hidden;
 }
+
 .card>p{
   margin-top: auto;
   font-size: 0.8em;
+}
+
+.card>.quantity-overlay {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  background-color: hsla(220, 40%, 40%, 1);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 4px;
 }
 
 
