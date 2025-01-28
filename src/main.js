@@ -10,5 +10,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   window.game =  new Game();
   game.init();
-  setupUI();
 });

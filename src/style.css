@@ -30,6 +30,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ---------------------------------- */
 
+html, body {
+  height: 100%;
+
+}
 body {
   background-color: hsl(220, 7%, 8%);
   color: white;
@@ -43,12 +47,15 @@ body {
   font-weight: 100;
   font-style: normal;
 
+  padding: 0.5rem;
 }
 #rightPane {
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
   height: 100%;
+  padding: 8px;
+  margin-block: 1rem;
 }
 
 #leftPane {
@@ -56,18 +63,46 @@ body {
   height: 100%;
   display: flex;
   flex-flow: column;
+  padding: 8px;
+  color: white;
+  font-weight: bold;
+  margin-block: 1rem;
 }
 
-#cardContainer {
+#sideNavContainer {
+  display: flex;
+  flex-flow: column wrap;
   width: 100%;
-  height: 100%;
-  margin: 1rem;
+  margin-top: auto;
+}
+
+#sideNavContainer>button {
+  width: 100%;
+  height: 2.5rem;
+  padding: 0.5rem;
+  color: white;
+  background-color: hsla(220, 60%, 50%, 0.9);
+  border: 2px solid transparent;
+}
+#sideNavContainer>button:hover {
+  border: 2px solid white;
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+
+#cardContainer {
   padding: 0.6rem;
+  height: 100%;
   display: flex;
   flex-flow: row wrap;
   gap: 1rem;
   justify-content: center;
-  border: 1px solid red;
+  border: 2px solid hsla(220, 40%, 40%, 0.4);
+  background-color: hsla(220, 20%, 9%, 0.5);
 }
 .card {
   width: 180px;;
@@ -75,6 +110,7 @@ body {
   border: solid 2px hsla(220, 40%, 40%);
   border-radius: 5px;
   padding: 0.6rem;
+  margin: 1rem;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -84,3 +120,55 @@ body {
   font-size: 0.8em;
 }
 
+
+#currentTabContainer {
+  display: flex;
+  flex-flow: column wrap;
+  height: 100%;
+}
+
+#packsTab {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+
+#openPackButton {
+  width: 120px;
+  height: 40px;
+  background-color: hsla(220, 60%, 30%, 1);
+  color: white;
+  font-weight: bolder;
+  border-radius: 5px;
+}
+
+#packModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(255, 0%, 0%, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#packContent {
+  background-color: hsla(180, 90%, 90%, 0.1);
+  padding: 20px;
+  border-radius: 0.7rem;
+  border: 2px dashed hsla(175, 95%, 90%, 0.2);
+  text-align: center;
+}
+
+#packControls button {
+  margin: 5px;
+  padding-block: 0.4rem;
+  padding-inline: 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
