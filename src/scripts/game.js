@@ -1,8 +1,9 @@
 import { RarityTiers, Cards } from "./card.js";
 import { setupUI, updateUI, createCard } from "./ui.js";
 import { Tabs } from "./tabs.js";
+import { saveGame, loadGame, resetGame } from "./data.js";
 
-class Card {
+export class Card {
   constructor(id, name, rarity, description, tooltip, quantity = 1) {
     this.id = id;
     this.name = name;
@@ -28,9 +29,30 @@ export class Game {
 
   init() {
     setupUI();
+
+    this.load();
     //this.addCardToOwned("metaCard");
 
     this.startGameLoop(); 
+  }
+
+  load() {
+    loadGame(this);
+  }
+
+  save() {
+    saveGame(this);
+  }
+  
+  reset() {
+    const areyourealllllysureyouwanttodothis = confirm("Are you sure you want to do this.\nThis will delete your save file completely?\n\nClick OK to DELETE save");
+    console.log(areyourealllllysureyouwanttodothis);
+
+    if (areyourealllllysureyouwanttodothis){
+      resetGame(this);
+    } else {
+      alert("Ok, no save deletion for you\n\n\ncoward");
+    }
   }
   
   startGameLoop(){
@@ -49,6 +71,10 @@ export class Game {
     updateUI();
   }
 
+  calculatePlayerStats() {
+    this.playerCardsPerPack = this.calculateCardsPerPack();
+    this.playerLuckFactor = this.calculateLuck();
+  }
 
   addCardToOwned(cardID) {
     if (!this.ownedCards[cardID]) {
@@ -122,8 +148,7 @@ export class Game {
     console.log("generating pack")
     // Recalc the players stats from collection cards
 
-    this.playerCardsPerPack = this.calculateCardsPerPack();
-    this.playerLuckFactor = this.calculateLuck();
+    this.calculatePlayerStats();
     
     // call the func to update the UI for player stats
 

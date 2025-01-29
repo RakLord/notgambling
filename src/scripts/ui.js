@@ -1,27 +1,63 @@
 import { Game } from "./game.js";
 
 
+export function updateStatText(id, value) {
+  const infoContainerDiv = document.getElementById("infoContainer");
+  infoContainerDiv.querySelector(`#${id}`).querySelector(".value").innerText = value;
+}
+
 export function setupUI() {
   console.log("UI Setup");
-  game.tabs.addTab("collectionTab", "Collection");
-  game.tabs.addTab("packsTab", "Packs");
-  game.tabs.addTab("shopTab", "Shop");
-  game.tabs.addTab("settingsTab", "Settings");
+  const leftPane = document.getElementById("leftPane");
+
+  const infoContainerDiv = document.createElement("div");
+  infoContainerDiv.id = "infoContainer";
+  leftPane.appendChild(infoContainerDiv);
+
+  // Utility function to create player stat text easier
+  function createInfoContainerItem(id, kText, vText="0") {
+    const item = document.createElement("div");
+    item.classList.add("infoContainerItem");
+    item.id = id;
+
+    const key = document.createElement("p");
+    key.classList.add("key");
+    key.innerText = kText;
+    item.appendChild(key);
+    
+    const value = document.createElement("p");
+    value.classList.add("value");
+    value.innerText = vText;
+    item.appendChild(value);
+
+    return item;
+  }
+
+  // Create the player stats in DOM
+  infoContainerDiv.appendChild(createInfoContainerItem("statPoints", "Points: "))
+  infoContainerDiv.appendChild(createInfoContainerItem("statLuck", "Luck: "))
   
-  // Important - builds the tab contents. May need to have a loading screen until this is built on launch.
-  tabSetup();
+ // Setup the nav on the leftPane
+ const navContainerDiv = document.createElement("div");
+ navContainerDiv.id = "sideNavContainer";
+ leftPane.appendChild(navContainerDiv);
+ game.tabs.addTab("collectionTab", "Collection");
+ game.tabs.addTab("packsTab", "Packs");
+ game.tabs.addTab("shopTab", "Shop");
+ game.tabs.addTab("settingsTab", "Settings");
+  
+ // Important - builds the tab contents. May need to have a loading screen until this is built on launch.
+ tabSetup();
 
-  game.tabs.unlockTab("collectionTab");
-  game.tabs.unlockTab("packsTab");
-
-  game.tabs.unlockTab("settingsTab");
-
-  game.tabs.switchTab("packsTab");
+ game.tabs.unlockTab("collectionTab");
+ game.tabs.unlockTab("packsTab");
+ game.tabs.unlockTab("settingsTab");
+ game.tabs.switchTab("packsTab");
 }
 
 export function updateUI() {
-  const pointsElement = document.getElementById("scoreText");
-  pointsElement.innerText = `Points: ${game.playerPoints}`;
+  updateStatText("statPoints", game.playerPoints);
+  updateStatText("statLuck", game.playerLuckFactor);
 }
 
 // Creates the card display for the collection
@@ -98,5 +134,28 @@ export function tabSetup() {
     collectionTab.appendChild(cardContainerDiv);
   }
 
+  const settingsTab = document.getElementById("settingsTab");
+  if (settingsTab) {
+    const settingsButtonsDiv = document.createElement("div");
+    settingsButtonsDiv.id = "settingsButtonsContainer";
+    
+    const saveButton = document.createElement("button");
+    const loadButton = document.createElement("button");
+    const resetButton = document.createElement("button");
+    saveButton.innerText = "Save Game";
+    loadButton.innerText = "Load Game";
+    resetButton.innerText = "Hard Reset";
+    saveButton.id = "saveButton";
+    loadButton.id = "loadButton";
+    resetButton.id = "resetButton";
+    saveButton.addEventListener("click", () => game.save());
+    loadButton.addEventListener("click", () => game.load());
+    resetButton.addEventListener("click", () => game.reset());
 
+    settingsButtonsDiv.appendChild(saveButton);
+    settingsButtonsDiv.appendChild(loadButton);
+    settingsButtonsDiv.appendChild(resetButton);
+    
+    settingsTab.appendChild(settingsButtonsDiv);
+  }
 }

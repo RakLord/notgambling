@@ -3,6 +3,6 @@ import { setupUI } from "./scripts/ui.js";
 
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  window.game =  new Game();
+  window.game = new Game();
   game.init();
 });
